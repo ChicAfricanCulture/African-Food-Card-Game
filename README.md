@@ -1,2 +1,22 @@
-# African-Food-Card-Game
-An interactive matching game that celebrates African cuisine. Match traditional dishes to their countries and unlock authentic recipes — designed by ChicAfricanCulture.
+
+# African Food × Country Matching Game
+**Taste the Continent — One Match at a Time.**  
+An interactive educational game that celebrates African cuisine and culture by matching dishes to their countries.
+
+## Live
+- Showcase (GitHub Pages root): `https://chicafricanculture.github.io/african-food-card-game`
+- Embed version: `https://chicafricanculture.github.io/african-food-card-game/embed.html`
+
+## Use in Blogger
+```html
+<iframe src="https://chicafricanculture.github.io/african-food-card-game/embed.html"
+        width="100%" height="820" style="border:none; border-radius:12px; overflow:hidden;"></iframe>
+```
+
+## Develop
+- `index.html` — with intro hero + Play button
+- `embed.html` — lean version for iframes
+- `css/style.css` — shared theme
+- `js/script.js` — game logic
+
+Images are loaded from Unsplash/Wikimedia CDNs. See **CREDITS.md** for licensing.
