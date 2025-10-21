@@ -5,24 +5,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>African Food × Country Matching Game — ChicAfricanCulture</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Lora:wght@400;500&display=swap" rel="stylesheet"/>
-  <script src="js/script.js"></script>
-  <meta name="description" content="Taste the Continent — One Match at a Time. Match iconic African dishes to their countries and unlock authentic recipes.">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Lora:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
-<body data-mode="showcase">
-  <section class="hero">
-    <div class="wrapper">
-      <h1 class="title">Taste the Continent — One Match at a Time</h1>
-      <p class="sub">Discover Africa through its stories, recipes, and timeless wisdom.</p>
-      <div class="actions">
-        <button id="playBtn" class="btn">Play Game</button>
-        <a class="btn btn-ghost" href="https://github.com/Chicafricanculture/african-food-card-game" target="_blank" rel="noopener">View on GitHub</a>
-      </div>
-      <p class="small" style="margin-top:.6rem;">Made by ChicAfricanCulture</p>
-    </div>
-  </section>
-
-  <main id="game" class="wrapper">
+<body data-mode="embed">
+  <main class="wrapper">
     <div class="board-wrap">
       <div class="controls">
         <button id="restart" class="btn">Restart</button>
@@ -30,8 +17,8 @@
       <div class="stats" id="status">Pairs found: <span id="found">0</span>/8 • Moves: <span id="moves">0</span> • Time: <span id="time">00:00</span></div>
       <div id="grid" class="grid" aria-label="Card grid"></div>
 
-      <section id="drawer" class="am1-drawer" style="display:block; margin-top:1rem; border:1px dashed #e7d7b7; background:#fffdfa; border-radius:12px; padding:.9rem; display:none;">
-        <h3 style="margin:.1rem 0 .6rem; font-family:'Playfair Display',serif; color:var(--cocoa); font-size: clamp(1.05rem, 2.2vw, 1.25rem);">Recipe Generator (Unlocked!)</h3>
+      <section id="drawer" class="am1-drawer" style="margin-top:1rem; border:1px dashed #e7d7b7; background:#fffdfa; border-radius:12px; padding:.9rem; display:none;">
+        <h3 style="margin:.1rem 0 .6rem; font-family:'Playfair Display',serif; color:#3b2e1a; font-size: clamp(1.05rem, 2.2vw, 1.25rem);">Recipe Generator (Unlocked!)</h3>
         <div class="row" style="display:flex; gap:.6rem; flex-wrap:wrap; align-items:center;">
           <label for="dishSelect"><strong>Choose a dish</strong></label>
           <select id="dishSelect" style="width:100%; border:1px solid #e7d7b7; border-radius:10px; padding:.5rem .6rem; font:inherit; background:#fff;"></select>
@@ -48,13 +35,7 @@
   </main>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
-
-  <footer class="site">
-    <div class="line">© <span id="y"></span> ChicAfricanCulture • All educational content & recipes by ChicAfricanCulture</div>
-    <div class="line"><a class="link" href="CREDITS.md" target="_blank" rel="noopener">Image Credits & Licenses</a></div>
-  </footer>
-
-  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
-  <script src="js/script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
+
