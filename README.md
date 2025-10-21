@@ -7,11 +7,6 @@ An interactive educational game that celebrates African cuisine and culture by m
 - Showcase (GitHub Pages root): `https://chicafricanculture.github.io/african-food-card-game`
 - Embed version: `https://chicafricanculture.github.io/african-food-card-game/embed.html`
 
-## Use in Blogger
-```html
-<iframe src="https://chicafricanculture.github.io/african-food-card-game/embed.html"
-        width="100%" height="820" style="border:none; border-radius:12px; overflow:hidden;"></iframe>
-```
 
 ## Develop
 - `index.html` — with intro hero + Play button
