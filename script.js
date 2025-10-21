@@ -277,13 +277,28 @@ function onFlip(e){
       toast(`${pairData.dish} — ${pairData.country}: ${pairData.fact || ''}`);
       state.first = null; state.found++; $('#found').textContent = state.found; checkWin();
     }, 250);
-  } else {
-    state.lock = true;
-    setTimeout(()=>{
-      card.classList.remove('flipped');
-      state.first.classList.remove('flipped');
-      state.first = null; state.lock = false;
-    }, 600);
+  } } else {
+  state.lock = true;
+  setTimeout(() => {
+    // Flip both cards back over
+    card.classList.remove('flipped');
+    state.first.classList.remove('flipped');
+    state.first = null;
+    
+    // Gentle fade-out shuffle animation
+    const grid = document.getElementById('grid');
+    grid.style.transition = 'opacity 0.3s ease';
+    grid.style.opacity = '0.5';
+    
+    setTimeout(() => {
+      const cards = Array.from(grid.children);
+      shuffle(cards);
+      cards.forEach(c => grid.appendChild(c));
+      grid.style.opacity = '1';
+      state.lock = false;
+    }, 350);
+  }, 900); // delay for visual feedback before flipping
+
   }
 }
 
