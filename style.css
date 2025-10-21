@@ -68,9 +68,15 @@ p.sub{ color:#5b5147; font-size: clamp(.98rem, 1.8vw, 1.1rem); margin:.2rem auto
 .inner{ position:absolute; inset:0; transform-style:preserve-3d; transition: transform .6s cubic-bezier(.2,.7,.2,1); }
 .card.flipped .inner{ transform: rotateY(180deg); }
 .face{
-  position:absolute; inset:0; backface-visibility:hidden; border-radius: var(--radius);
-  border: 1px solid #eadfcd; box-shadow: var(--shadow); overflow:hidden;
+  position:absolute; inset:0;
+  backface-visibility:hidden;
+  border-radius: var(--radius);
+  border: 1px solid rgba(164, 132, 196, 0.25); /* faint purple border */
+  box-shadow: 0 8px 16px rgba(64, 26, 85, 0.08); /* soft floating shadow */
+  overflow:hidden;
+  background-color: #fffdfc;
 }
+
 .front{
   display:flex; align-items:center; justify-content:center;
   background:
