@@ -20,7 +20,7 @@ body{
   margin:0;
   font-family: 'Lora', serif;
   color:var(--ink);
-  background: linear-gradient(180deg, var(--bg2) 0%, var(--bg1) 100%);
+    background: linear-gradient(180deg, #f9f6ff 0%, #f3eefc 100%);
 }
 
 .wrapper{ max-width: 1040px; margin: 0 auto; padding: clamp(14px,2.5vw,24px); }
