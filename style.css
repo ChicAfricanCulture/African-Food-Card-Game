@@ -1,54 +1,47 @@
-/* Add these styles for the text-only cards */
-.card-content {
+/* ===== Black Card Styles — Add/Replace these in your style.css ===== */
+
+.front {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100%;
-  padding: 1rem;
-  text-align: center;
+  background: #000000;
+  border: 1px solid #333333;
 }
 
-.card-emoji {
-  font-size: 2.5rem;
-  margin-bottom: 0.5rem;
-  line-height: 1;
+.back {
+  transform: rotateY(180deg);
+  background: #000000;
+  border: 1px solid #333333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.card-content {
+  text-align: center;
+  color: #ffffff;
 }
 
 .card-title {
   font-family: 'Playfair Display', serif;
-  font-weight: 700;
-  color: #3b2e1a;
-  font-size: 1.1rem;
+  font-weight: 400;
+  font-size: 1.2rem;
   margin-bottom: 0.25rem;
+  letter-spacing: 0.5px;
+  color: #ffffff;
 }
 
 .card-subtitle {
   font-size: 0.9rem;
-  color: #6b5a3e;
+  color: #aaaaaa;
   font-style: italic;
+  letter-spacing: 0.3px;
 }
 
-/* Matched cards stay flipped but get a subtle indicator */
 .card.matched .inner {
   filter: brightness(0.98);
   opacity: 0.9;
 }
 
-/* Remove any image-related styles from your existing CSS */
-/* You can delete or comment out the .photo section entirely */
-footer.site{ text-align:center; color:#6b5a3e; padding: 18px 12px; }
-footer.site .line{ margin-top:.3rem; font-size:.95rem; }
-a.link{ color:var(--accent); text-decoration:none; }
-a.link:hover{ text-decoration:underline; }
-/* === Matched Card Pulse Animation === */
-@keyframes goldPulse {
-  0% { box-shadow: 0 0 0px rgba(212,175,55,0); }
-  50% { box-shadow: 0 0 20px 6px rgba(212,175,55,0.6); }
-  100% { box-shadow: 0 0 0px rgba(212,175,55,0); }
-}
-
-.card.am-locked .inner {
-  animation: goldPulse 0.8s ease-in-out;
-}
-
+/* Remove or comment out any old .photo, .badge, .emoji styles */
