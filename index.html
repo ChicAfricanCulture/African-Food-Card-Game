@@ -17,13 +17,45 @@
       font-family: 'Lora', serif;
       min-height: 100vh;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
       padding: 1rem;
     }
 
+    .game-header {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      max-width: 700px;
+    }
+
+    .game-header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 5vw, 2.4rem);
+      font-weight: 700;
+      color: #2c3e2f;
+      margin-bottom: 0.3rem;
+    }
+
+    .game-header p {
+      font-size: 1.1rem;
+      color: #5a4a32;
+      border-bottom: 1px solid #e7d7b7;
+      padding-bottom: 0.8rem;
+    }
+
+    .game-header .project-link {
+      margin-top: 0.5rem;
+      font-size: 0.95rem;
+    }
+
+    .game-header .project-link a {
+      color: #8b6f4c;
+      text-decoration: none;
+      border-bottom: 1px dotted #8b6f4c;
+    }
+
     .wrapper {
-      max-width: 900px;
+      max-width: 1000px;
       width: 100%;
     }
 
@@ -51,7 +83,6 @@
       font-family: 'Lora', serif;
       cursor: pointer;
       transition: background 0.2s;
-      letter-spacing: 0.3px;
     }
 
     .btn:hover {
@@ -70,7 +101,7 @@
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
       gap: 1rem;
       margin: 1.5rem 0 1rem;
     }
@@ -99,7 +130,6 @@
     }
 
     .card.matched .inner {
-      filter: brightness(0.98);
       opacity: 0.9;
     }
 
@@ -113,6 +143,7 @@
       align-items: center;
       justify-content: center;
       box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+      overflow: hidden;
     }
 
     .front {
@@ -124,24 +155,39 @@
       transform: rotateY(180deg);
       background: #000000;
       border: 1px solid #333333;
-      padding: 0.75rem;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-image {
+      width: 100%;
+      height: 70%;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
     }
 
     .card-content {
+      height: 30%;
       text-align: center;
       color: #ffffff;
+      padding: 0.25rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
     .card-title {
       font-family: 'Playfair Display', serif;
       font-weight: 600;
-      font-size: 1.1rem;
-      margin-bottom: 0.25rem;
+      font-size: 0.9rem;
       color: #ffffff;
+      line-height: 1.2;
     }
 
     .card-subtitle {
-      font-size: 0.85rem;
+      font-size: 0.75rem;
       color: #cccccc;
       font-style: italic;
     }
@@ -158,7 +204,6 @@
       margin: 0 0 0.8rem 0;
       font-family: 'Playfair Display', serif;
       color: #3b2e1a;
-      font-size: 1.25rem;
     }
 
     .row {
@@ -172,7 +217,6 @@
       padding: 0.7rem 0.8rem;
       font-family: 'Lora', serif;
       background: #fff;
-      font-size: 0.95rem;
     }
 
     textarea {
@@ -189,29 +233,36 @@
       color: white;
       padding: 0.8rem 2rem;
       border-radius: 50px;
-      font-size: 1rem;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
       transition: transform 0.3s ease;
       z-index: 1000;
-      opacity: 0.95;
     }
 
     .toast.show {
       transform: translateX(-50%) translateY(0);
     }
 
-    @media (max-width: 500px) {
-      .grid {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 0.7rem;
-      }
-      .board-wrap {
-        padding: 1rem;
-      }
+    .credit-note {
+      margin-top: 1rem;
+      font-size: 0.8rem;
+      color: #8b6f4c;
+      text-align: center;
+    }
+    
+    .credit-note a {
+      color: #5a4a32;
     }
   </style>
 </head>
-<body data-mode="embed">
+<body>
+  <div class="game-header">
+    <h1>African Food × Country</h1>
+    <p>Match the dish to its homeland</p>
+    <div class="project-link">
+      <a href="https://github.com/ChicAfricanCulture/African-Food-Card-Game" target="_blank">GitHub</a> • 
+      <a href="CREDITS.md" target="_blank">Image Credits</a>
+    </div>
+  </div>
+
   <main class="wrapper">
     <div class="board-wrap">
       <div class="controls">
@@ -238,19 +289,71 @@
   </main>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  
+  <div class="credit-note">
+    Images: <a href="CREDITS.md" target="_blank">Wikimedia Commons (CC BY / CC BY‑SA)</a>
+  </div>
 
   <script>
     (function() {
-      // ===== Game data =====
+      // ===== Game data with image URLs from Wikimedia Commons =====
       const DATA = [
-        { id: 'jollof', dish: 'Jollof Rice', country: 'Nigeria', fact: 'A one-pot rice dish cooked with tomatoes, onions, and spices.' },
-        { id: 'fufu', dish: 'Fufu', country: 'Ghana', fact: 'A starchy side dish made from cassava and plantains.' },
-        { id: 'injera', dish: 'Injera', country: 'Ethiopia', fact: 'A sour fermented flatbread with a spongy texture.' },
-        { id: 'tagine', dish: 'Tagine', country: 'Morocco', fact: 'A slow-cooked stew named after the clay pot it cooks in.' },
-        { id: 'bunny', dish: 'Bunny Chow', country: 'South Africa', fact: 'A hollowed-out loaf of bread filled with curry.' },
-        { id: 'egusi', dish: 'Egusi Soup', country: 'Nigeria', fact: 'A thick soup made with ground melon seeds and leafy vegetables.' },
-        { id: 'suya', dish: 'Suya', country: 'Nigeria', fact: 'Spicy grilled meat skewers seasoned with peanut sauce.' },
-        { id: 'benachin', dish: 'Benachin', country: 'Gambia', fact: 'A one-pot rice dish also known as Jollof in other regions.' }
+        { 
+          id: 'jollof', 
+          dish: 'Jollof Rice', 
+          country: 'Nigeria', 
+          fact: 'A one-pot rice dish cooked with tomatoes, onions, and spices.',
+          image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Jollof_Rice_Ghana.jpg/800px-Jollof_Rice_Ghana.jpg'
+        },
+        { 
+          id: 'fufu', 
+          dish: 'Fufu', 
+          country: 'Ghana', 
+          fact: 'A starchy side dish made from cassava and plantains.',
+          image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Ugali_and_cabbage.jpg/800px-Ugali_and_cabbage.jpg'
+        },
+        { 
+          id: 'injera', 
+          dish: 'Injera', 
+          country: 'Ethiopia', 
+          fact: 'A sour fermented flatbread with a spongy texture.',
+          image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Injera%2C_Ethiopian%27s_traditional_food.JPG/800px-Injera%2C_Ethiopian%27s_traditional_food.JPG'
+        },
+        { 
+          id: 'tagine', 
+          dish: 'Tagine', 
+          country: 'Morocco', 
+          fact: 'A slow-cooked stew named after the clay pot it cooks in.',
+          image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/MoroccanCouscous.jpg/800px-MoroccanCouscous.jpg'
+        },
+        { 
+          id: 'bunny', 
+          dish: 'Bunny Chow', 
+          country: 'South Africa', 
+          fact: 'A hollowed-out loaf of bread filled with curry.',
+          image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Bobotie_South_Africa.jpg/800px-Bobotie_South_Africa.jpg'
+        },
+        { 
+          id: 'egusi', 
+          dish: 'Egusi Soup', 
+          country: 'Nigeria', 
+          fact: 'A thick soup made with ground melon seeds and leafy vegetables.',
+          image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Egusi_soup_with_ponmo_and_beef.jpg/800px-Egusi_soup_with_ponmo_and_beef.jpg'
+        },
+        { 
+          id: 'suya', 
+          dish: 'Suya', 
+          country: 'Nigeria', 
+          fact: 'Spicy grilled meat skewers seasoned with peanut sauce.',
+          image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Egusi_soup_with_ponmo_and_beef.jpg/800px-Egusi_soup_with_ponmo_and_beef.jpg'
+        },
+        { 
+          id: 'benachin', 
+          dish: 'Benachin', 
+          country: 'Gambia', 
+          fact: 'A one-pot rice dish also known as Jollof in other regions.',
+          image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Senegalese_Thieboudienne.JPG/800px-Senegalese_Thieboudienne.JPG'
+        }
       ];
 
       // ===== Helper functions =====
@@ -285,20 +388,24 @@
       function buildDeck() {
         const deck = [];
         DATA.forEach(item => {
+          // Dish card
           deck.push({
             pairId: item.id,
             type: 'dish',
             title: item.dish,
             subtitle: item.country,
             fact: item.fact,
+            image: item.image,
             key: `${item.id}-dish`
           });
+          // Country card
           deck.push({
             pairId: item.id,
             type: 'country',
             title: item.country,
             subtitle: item.dish,
             fact: item.fact,
+            image: item.image,
             key: `${item.id}-country`
           });
         });
@@ -325,7 +432,10 @@
 
           const back = document.createElement('div');
           back.className = 'face back';
+          
+          // Back face with image and text
           back.innerHTML = `
+            <div class="card-image" style="background-image: url('${card.image}');"></div>
             <div class="card-content">
               <div class="card-title">${card.title}</div>
               <div class="card-subtitle">${card.subtitle}</div>
