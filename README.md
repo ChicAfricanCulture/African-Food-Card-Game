@@ -1,11 +1,14 @@
-
 # African Food × Country Matching Game
 
 A minimalist memory game that pairs African dishes with their countries of origin. Part of the African Foodways project.
 
+🔗 **Play the game:** https://chicafricanculture.github.io/African-Food-Card-Game/
+
+---
+
 ## About
 
-This game helps build familiarity with African food names and their cultural origins through a simple matching mechanic. Flip cards to find matching dish–country pairs.
+Match traditional African dishes to their home countries while learning fun facts along the way. Features 8 classic dishes from across the continent, a sleek black-on-white design, and a recipe generator that unlocks upon completion.
 
 ## How to Play
 
