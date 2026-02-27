@@ -43,17 +43,6 @@
       padding-bottom: 0.8rem;
     }
 
-    .game-header .project-link {
-      margin-top: 0.5rem;
-      font-size: 0.95rem;
-    }
-
-    .game-header .project-link a {
-      color: #8b6f4c;
-      text-decoration: none;
-      border-bottom: 1px dotted #8b6f4c;
-    }
-
     .wrapper {
       max-width: 1000px;
       width: 100%;
@@ -101,7 +90,7 @@
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      grid-template-columns: repeat(4, 1fr);
       gap: 1rem;
       margin: 1.5rem 0 1rem;
     }
@@ -176,6 +165,7 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
+      background: rgba(0,0,0,0.9);
     }
 
     .card-title {
@@ -241,15 +231,17 @@
       transform: translateX(-50%) translateY(0);
     }
 
-    .credit-note {
-      margin-top: 1rem;
-      font-size: 0.8rem;
-      color: #8b6f4c;
-      text-align: center;
-    }
-    
-    .credit-note a {
-      color: #5a4a32;
+    @media (max-width: 600px) {
+      .grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0.5rem;
+      }
+      .card-title {
+        font-size: 0.7rem;
+      }
+      .card-subtitle {
+        font-size: 0.6rem;
+      }
     }
   </style>
 </head>
@@ -257,10 +249,6 @@
   <div class="game-header">
     <h1>African Food × Country</h1>
     <p>Match the dish to its homeland</p>
-    <div class="project-link">
-      <a href="https://github.com/ChicAfricanCulture/African-Food-Card-Game" target="_blank">GitHub</a> • 
-      <a href="CREDITS.md" target="_blank">Image Credits</a>
-    </div>
   </div>
 
   <main class="wrapper">
@@ -289,70 +277,66 @@
   </main>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
-  
-  <div class="credit-note">
-    Images: <a href="CREDITS.md" target="_blank">Wikimedia Commons (CC BY / CC BY‑SA)</a>
-  </div>
 
   <script>
     (function() {
-      // ===== Game data with image URLs from Wikimedia Commons =====
+      // ===== Game data with LOCAL image filenames =====
       const DATA = [
         { 
-          id: 'jollof', 
-          dish: 'Jollof Rice', 
-          country: 'Nigeria', 
-          fact: 'A one-pot rice dish cooked with tomatoes, onions, and spices.',
-          image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Jollof_Rice_Ghana.jpg/800px-Jollof_Rice_Ghana.jpg'
+          id: 'moambe', 
+          dish: 'Moambe', 
+          country: 'Central Africa', 
+          fact: 'A rich stew made with palm oil, chicken, and vegetables.',
+          image: 'central.jpg'
         },
         { 
-          id: 'fufu', 
-          dish: 'Fufu', 
-          country: 'Ghana', 
-          fact: 'A starchy side dish made from cassava and plantains.',
-          image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Ugali_and_cabbage.jpg/800px-Ugali_and_cabbage.jpg'
-        },
-        { 
-          id: 'injera', 
-          dish: 'Injera', 
+          id: 'dorowat', 
+          dish: 'Doro Wat', 
           country: 'Ethiopia', 
-          fact: 'A sour fermented flatbread with a spongy texture.',
-          image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Injera%2C_Ethiopian%27s_traditional_food.JPG/800px-Injera%2C_Ethiopian%27s_traditional_food.JPG'
+          fact: 'Spicy chicken stew with hard-boiled eggs, served with injera.',
+          image: 'east.jpg'
         },
         { 
-          id: 'tagine', 
-          dish: 'Tagine', 
+          id: 'tajine', 
+          dish: 'Tajine', 
           country: 'Morocco', 
           fact: 'A slow-cooked stew named after the clay pot it cooks in.',
-          image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/MoroccanCouscous.jpg/800px-MoroccanCouscous.jpg'
+          image: 'north.jpg'
         },
         { 
           id: 'bunny', 
           dish: 'Bunny Chow', 
           country: 'South Africa', 
           fact: 'A hollowed-out loaf of bread filled with curry.',
-          image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Bobotie_South_Africa.jpg/800px-Bobotie_South_Africa.jpg'
+          image: 'south.jpg'
         },
         { 
-          id: 'egusi', 
-          dish: 'Egusi Soup', 
+          id: 'yassa', 
+          dish: 'Chicken Yassa', 
+          country: 'Senegal', 
+          fact: 'Marinated grilled chicken with caramelized onions and lemon.',
+          image: 'west.jpg'
+        },
+        { 
+          id: 'fufu', 
+          dish: 'Fufu', 
+          country: 'Ghana', 
+          fact: 'A starchy side dish made from cassava and plantains.',
+          image: 'fufu1.jpg'
+        },
+        { 
+          id: 'jollof', 
+          dish: 'Jollof Rice', 
           country: 'Nigeria', 
-          fact: 'A thick soup made with ground melon seeds and leafy vegetables.',
-          image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Egusi_soup_with_ponmo_and_beef.jpg/800px-Egusi_soup_with_ponmo_and_beef.jpg'
+          fact: 'A one-pot rice dish cooked with tomatoes, onions, and spices.',
+          image: 'r03_Jollof_1.jpg'
         },
         { 
-          id: 'suya', 
-          dish: 'Suya', 
-          country: 'Nigeria', 
-          fact: 'Spicy grilled meat skewers seasoned with peanut sauce.',
-          image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Egusi_soup_with_ponmo_and_beef.jpg/800px-Egusi_soup_with_ponmo_and_beef.jpg'
-        },
-        { 
-          id: 'benachin', 
-          dish: 'Benachin', 
-          country: 'Gambia', 
-          fact: 'A one-pot rice dish also known as Jollof in other regions.',
-          image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Senegalese_Thieboudienne.JPG/800px-Senegalese_Thieboudienne.JPG'
+          id: 'kenkey', 
+          dish: 'Kenkey', 
+          country: 'Ghana', 
+          fact: 'Fermented corn dough dumpling, often served with fish and pepper sauce.',
+          image: 'r09_kenkey_1.jpg'
         }
       ];
 
