@@ -109,7 +109,7 @@
       position: relative;
       width: 100%;
       height: 100%;
-      transition: transform 0.5s;
+      transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
       transform-style: preserve-3d;
       border-radius: 16px;
     }
@@ -118,8 +118,16 @@
       transform: rotateY(180deg);
     }
 
+    /* FIX 2: Proper matched card styling */
+    .card.matched {
+      cursor: default;
+      pointer-events: none;
+    }
+
     .card.matched .inner {
-      opacity: 0.9;
+      transform: rotateY(180deg) !important;
+      opacity: 1;
+      box-shadow: 0 8px 24px rgba(44, 62, 47, 0.5);
     }
 
     .face {
@@ -246,6 +254,10 @@
   </style>
 </head>
 <body>
+  <!-- FIX 4: Audio elements -->
+  <audio id="correctSound" src="https://assets.codepen.io/438780/correct.mp3" preload="auto"></audio>
+  <audio id="wrongSound" src="https://assets.codepen.io/438780/wrong.mp3" preload="auto"></audio>
+
   <div class="game-header">
     <h1>African Food × Country</h1>
     <p>Match the dish to its homeland</p>
@@ -417,9 +429,9 @@
           const back = document.createElement('div');
           back.className = 'face back';
           
-          // Back face with image and text
+          // FIX 1: Add 'images/' folder prefix to image paths
           back.innerHTML = `
-            <div class="card-image" style="background-image: url('${card.image}');"></div>
+            <div class="card-image" style="background-image: url('images/${card.image}');"></div>
             <div class="card-content">
               <div class="card-title">${card.title}</div>
               <div class="card-subtitle">${card.subtitle}</div>
@@ -454,8 +466,18 @@
         const secondPair = card.dataset.pair;
 
         if (firstPair === secondPair) {
+          // MATCH found
           state.first.classList.add('matched');
           card.classList.add('matched');
+          
+          // Visual flash for match
+          [state.first, card].forEach(c => {
+            c.style.boxShadow = '0 0 0 4px #2c3e2f';
+            setTimeout(() => c.style.boxShadow = '', 600);
+          });
+          
+          // Play correct sound
+          document.getElementById('correctSound')?.play().catch(() => {});
 
           const item = DATA.find(d => d.id === firstPair);
           if (item) toast(item.fact);
@@ -465,13 +487,25 @@
           $('#found').textContent = state.found;
           checkWin();
         } else {
+          // MISMATCH
+          // Play wrong sound
+          document.getElementById('wrongSound')?.play().catch(() => {});
+          
+          // Red flash for mismatch
+          [state.first, card].forEach(c => {
+            c.style.boxShadow = '0 0 0 3px #b22222';
+            setTimeout(() => c.style.boxShadow = '', 300);
+          });
+          
           state.lock = true;
+          
+          // FIX 3: Longer timeout to see both cards
           setTimeout(() => {
             card.classList.remove('flipped');
             state.first.classList.remove('flipped');
             state.first = null;
             state.lock = false;
-          }, 800);
+          }, 1000);
         }
       }
 
