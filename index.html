@@ -11,7 +11,6 @@
       margin: 0;
       padding: 0;
     }
-
     body {
       background: #faf7f2;
       font-family: 'Lora', serif;
@@ -21,13 +20,11 @@
       align-items: center;
       padding: 1rem;
     }
-
     .game-header {
       text-align: center;
       margin-bottom: 1.5rem;
       max-width: 700px;
     }
-
     .game-header h1 {
       font-family: 'Playfair Display', serif;
       font-size: clamp(1.8rem, 5vw, 2.4rem);
@@ -35,32 +32,27 @@
       color: #2c3e2f;
       margin-bottom: 0.3rem;
     }
-
     .game-header p {
       font-size: 1.1rem;
       color: #5a4a32;
       border-bottom: 1px solid #e7d7b7;
       padding-bottom: 0.8rem;
     }
-
     .wrapper {
       max-width: 1000px;
       width: 100%;
     }
-
     .board-wrap {
       background: #fff9f0;
       border-radius: 24px;
       padding: 1.5rem;
       box-shadow: 0 12px 30px rgba(0,0,0,0.08);
     }
-
     .controls {
       margin-bottom: 1rem;
       display: flex;
       justify-content: flex-end;
     }
-
     .btn {
       background: #2c3e2f;
       color: white;
@@ -73,11 +65,9 @@
       cursor: pointer;
       transition: background 0.2s;
     }
-
     .btn:hover {
       background: #1f2b22;
     }
-
     .stats {
       font-size: 1rem;
       color: #3b2e1a;
@@ -87,14 +77,12 @@
       border-radius: 50px;
       display: inline-block;
     }
-
     .grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 1rem;
       margin: 1.5rem 0 1rem;
     }
-
     .card {
       background: transparent;
       border: none;
@@ -103,8 +91,8 @@
       perspective: 1000px;
       width: 100%;
       padding: 0;
+      transition: box-shadow 0.3s;
     }
-
     .card .inner {
       position: relative;
       width: 100%;
@@ -113,23 +101,18 @@
       transform-style: preserve-3d;
       border-radius: 16px;
     }
-
     .card.flipped .inner {
       transform: rotateY(180deg);
     }
-
-    /* FIX 2: Proper matched card styling */
     .card.matched {
       cursor: default;
       pointer-events: none;
     }
-
     .card.matched .inner {
-      transform: rotateY(180deg) !important;
+      transform: rotateY(180deg) scale(1.04) !important;
       opacity: 1;
       box-shadow: 0 8px 24px rgba(44, 62, 47, 0.5);
     }
-
     .face {
       position: absolute;
       width: 100%;
@@ -142,21 +125,18 @@
       box-shadow: 0 6px 12px rgba(0,0,0,0.1);
       overflow: hidden;
     }
-
     .front {
       background: #000000;
       border: 1px solid #333333;
     }
-
     .back {
       transform: rotateY(180deg);
-      background: #000000;
+      background: #1a1a1a;
       border: 1px solid #333333;
       padding: 0;
       display: flex;
       flex-direction: column;
     }
-
     .card-image {
       width: 100%;
       height: 70%;
@@ -164,7 +144,6 @@
       background-position: center;
       background-repeat: no-repeat;
     }
-
     .card-content {
       height: 30%;
       text-align: center;
@@ -175,7 +154,6 @@
       justify-content: center;
       background: rgba(0,0,0,0.9);
     }
-
     .card-title {
       font-family: 'Playfair Display', serif;
       font-weight: 600;
@@ -183,13 +161,11 @@
       color: #ffffff;
       line-height: 1.2;
     }
-
     .card-subtitle {
       font-size: 0.75rem;
       color: #cccccc;
       font-style: italic;
     }
-
     .am1-drawer {
       margin-top: 1.5rem;
       border: 1px dashed #d4b68a;
@@ -197,17 +173,14 @@
       border-radius: 16px;
       padding: 1.2rem;
     }
-
     .am1-drawer h3 {
       margin: 0 0 0.8rem 0;
       font-family: 'Playfair Display', serif;
       color: #3b2e1a;
     }
-
     .row {
       margin-bottom: 1rem;
     }
-
     select, textarea {
       width: 100%;
       border: 1px solid #e7d7b7;
@@ -216,12 +189,10 @@
       font-family: 'Lora', serif;
       background: #fff;
     }
-
     textarea {
       min-height: 160px;
       resize: vertical;
     }
-
     .toast {
       position: fixed;
       bottom: 2rem;
@@ -234,14 +205,12 @@
       transition: transform 0.3s ease;
       z-index: 1000;
     }
-
     .toast.show {
       transform: translateX(-50%) translateY(0);
     }
-
     @media (max-width: 600px) {
       .grid {
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(2, 1fr); /* Better for mobile */
         gap: 0.5rem;
       }
       .card-title {
@@ -254,15 +223,12 @@
   </style>
 </head>
 <body>
-  <!-- FIX 4: Audio elements -->
-  <audio id="correctSound" src="https://assets.codepen.io/438780/correct.mp3" preload="auto"></audio>
-  <audio id="wrongSound" src="https://assets.codepen.io/438780/wrong.mp3" preload="auto"></audio>
-
+  <audio id="correctSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_6d4c8c8c3e.mp3?filename=correct-2-46134.mp3" preload="auto"></audio>
+  <audio id="wrongSound" src="https://cdn.pixabay.com/download/audio/2022/03/09/audio_8b8f5d8f5f.mp3?filename=wrong-answer-126515.mp3" preload="auto"></audio>
   <div class="game-header">
     <h1>African Food × Country</h1>
     <p>Match the dish to its homeland</p>
   </div>
-
   <main class="wrapper">
     <div class="board-wrap">
       <div class="controls">
@@ -270,7 +236,6 @@
       </div>
       <div class="stats" id="status">Pairs found: <span id="found">0</span>/8 • Moves: <span id="moves">0</span> • Time: <span id="time">00:00</span></div>
       <div id="grid" class="grid" aria-label="Card grid"></div>
-
       <section id="drawer" class="am1-drawer" style="display: none;">
         <h3>Recipe Generator (Unlocked!)</h3>
         <div class="row">
@@ -287,74 +252,21 @@
       </section>
     </div>
   </main>
-
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
-
   <script>
     (function() {
-      // ===== Game data with LOCAL image filenames =====
       const DATA = [
-        { 
-          id: 'moambe', 
-          dish: 'Moambe', 
-          country: 'Central Africa', 
-          fact: 'A rich stew made with palm oil, chicken, and vegetables.',
-          image: 'central.jpg'
-        },
-        { 
-          id: 'dorowat', 
-          dish: 'Doro Wat', 
-          country: 'Ethiopia', 
-          fact: 'Spicy chicken stew with hard-boiled eggs, served with injera.',
-          image: 'east.jpg'
-        },
-        { 
-          id: 'tajine', 
-          dish: 'Tajine', 
-          country: 'Morocco', 
-          fact: 'A slow-cooked stew named after the clay pot it cooks in.',
-          image: 'north.jpg'
-        },
-        { 
-          id: 'bunny', 
-          dish: 'Bunny Chow', 
-          country: 'South Africa', 
-          fact: 'A hollowed-out loaf of bread filled with curry.',
-          image: 'south.jpg'
-        },
-        { 
-          id: 'yassa', 
-          dish: 'Chicken Yassa', 
-          country: 'Senegal', 
-          fact: 'Marinated grilled chicken with caramelized onions and lemon.',
-          image: 'west.jpg'
-        },
-        { 
-          id: 'fufu', 
-          dish: 'Fufu', 
-          country: 'Ghana', 
-          fact: 'A starchy side dish made from cassava and plantains.',
-          image: 'fufu1.jpg'
-        },
-        { 
-          id: 'jollof', 
-          dish: 'Jollof Rice', 
-          country: 'Nigeria', 
-          fact: 'A one-pot rice dish cooked with tomatoes, onions, and spices.',
-          image: 'r03_Jollof_1.jpg'
-        },
-        { 
-          id: 'kenkey', 
-          dish: 'Kenkey', 
-          country: 'Ghana', 
-          fact: 'Fermented corn dough dumpling, often served with fish and pepper sauce.',
-          image: 'r09_kenkey_1.jpg'
-        }
+        { id: 'moambe', dish: 'Moambe', country: 'Central Africa', fact: 'A rich stew made with palm oil, chicken, and vegetables.', image: 'central.jpg' },
+        { id: 'dorowat', dish: 'Doro Wat', country: 'Ethiopia', fact: 'Spicy chicken stew with hard-boiled eggs, served with injera.', image: 'east.jpg' },
+        { id: 'tajine', dish: 'Tajine', country: 'Morocco', fact: 'A slow-cooked stew named after the clay pot it cooks in.', image: 'north.jpg' },
+        { id: 'bunny', dish: 'Bunny Chow', country: 'South Africa', fact: 'A hollowed-out loaf of bread filled with curry.', image: 'south.jpg' },
+        { id: 'yassa', dish: 'Chicken Yassa', country: 'Senegal', fact: 'Marinated grilled chicken with caramelized onions and lemon.', image: 'west.jpg' },
+        { id: 'fufu', dish: 'Fufu', country: 'Ghana', fact: 'A starchy side dish made from cassava and plantains.', image: 'fufu1.jpg' },
+        { id: 'jollof', dish: 'Jollof Rice', country: 'Nigeria', fact: 'A one-pot rice dish cooked with tomatoes, onions, and spices.', image: 'r03_Jollof_1.jpg' },
+        { id: 'kenkey', dish: 'Kenkey', country: 'Ghana', fact: 'Fermented corn dough dumpling, often served with fish and pepper sauce.', image: 'r09_kenkey_1.jpg' }
       ];
 
-      // ===== Helper functions =====
-      const $ = (sel, root = document) => root.querySelector(sel);
-
+      const $ = (sel) => document.querySelector(sel);
       function shuffle(arr) {
         for (let i = arr.length - 1; i > 0; i--) {
           const j = Math.floor(Math.random() * (i + 1));
@@ -362,176 +274,124 @@
         }
         return arr;
       }
-
       function formatTime(s) {
-        const m = String(Math.floor(s / 60)).padStart(2, '0');
-        const sec = String(s % 60).padStart(2, '0');
-        return `${m}:${sec}`;
+        return `${String(Math.floor(s / 60)).padStart(2, '0')}:${String(s % 60).padStart(2, '0')}`;
+      }
+      function playSound(id) {
+        const audio = $(`#${id}`);
+        if (audio) {
+          audio.currentTime = 0;
+          audio.play().catch(() => {});
+        }
       }
 
-      // ===== Game state =====
       let state = {
         deck: [],
-        first: null,
-        lock: false,
-        found: 0,
+        firstCard: null,
+        secondCard: null,
+        lockBoard: false,
+        matches: 0,
         moves: 0,
         seconds: 0,
         timer: null
       };
 
-      // ===== Build deck =====
       function buildDeck() {
         const deck = [];
         DATA.forEach(item => {
-          // Dish card
-          deck.push({
-            pairId: item.id,
-            type: 'dish',
-            title: item.dish,
-            subtitle: item.country,
-            fact: item.fact,
-            image: item.image,
-            key: `${item.id}-dish`
-          });
-          // Country card
-          deck.push({
-            pairId: item.id,
-            type: 'country',
-            title: item.country,
-            subtitle: item.dish,
-            fact: item.fact,
-            image: item.image,
-            key: `${item.id}-country`
-          });
+          deck.push({ ...item, type: 'dish', title: item.dish, subtitle: item.country, key: `${item.id}-dish` });
+          deck.push({ ...item, type: 'country', title: item.country, subtitle: item.dish, key: `${item.id}-country` });
         });
         return shuffle(deck);
       }
 
-      // ===== Render board =====
       function renderBoard() {
         const grid = $('#grid');
-        if (!grid) return;
-
         grid.innerHTML = '';
-        state.deck.forEach(card => {
-          const btn = document.createElement('button');
-          btn.className = 'card';
-          btn.dataset.pair = card.pairId;
-          btn.dataset.key = card.key;
-
+        state.deck.forEach(cardData => {
+          const card = document.createElement('button');
+          card.className = 'card';
+          card.dataset.pairId = cardData.id;
           const inner = document.createElement('div');
           inner.className = 'inner';
-
           const front = document.createElement('div');
           front.className = 'face front';
-
           const back = document.createElement('div');
           back.className = 'face back';
-          
-          // FIX 1: Add 'images/' folder prefix to image paths
           back.innerHTML = `
-            <div class="card-image" style="background-image: url('images/${card.image}');"></div>
+            <div class="card-image" style="background-image: url('images/${cardData.image}');"></div>
             <div class="card-content">
-              <div class="card-title">${card.title}</div>
-              <div class="card-subtitle">${card.subtitle}</div>
+              <div class="card-title">${cardData.title}</div>
+              <div class="card-subtitle">${cardData.subtitle}</div>
             </div>
           `;
-
-          inner.appendChild(front);
-          inner.appendChild(back);
-          btn.appendChild(inner);
-          btn.addEventListener('click', onFlip);
-          grid.appendChild(btn);
+          inner.append(front, back);
+          card.append(inner);
+          card.addEventListener('click', flipCard);
+          grid.append(card);
         });
       }
 
-      // ===== Flip handler =====
-      function onFlip(e) {
+      function flipCard(e) {
         const card = e.currentTarget;
-        if (state.lock || card.classList.contains('flipped') || card.classList.contains('matched')) return;
+        if (state.lockBoard || card.classList.contains('flipped') || card.classList.contains('matched')) return;
 
         card.classList.add('flipped');
 
-        if (!state.first) {
-          state.first = card;
-          if (state.moves === 0 && state.found === 0) startTimer();
+        if (!state.firstCard) {
+          state.firstCard = card;
+          if (state.moves === 0) startTimer();
           return;
         }
 
+        state.secondCard = card;
         state.moves++;
         $('#moves').textContent = state.moves;
+        state.lockBoard = true;
 
-        const firstPair = state.first.dataset.pair;
-        const secondPair = card.dataset.pair;
-
-        if (firstPair === secondPair) {
-          // MATCH found
-          state.first.classList.add('matched');
-          card.classList.add('matched');
-          
-          // Visual flash for match
-          [state.first, card].forEach(c => {
-            c.style.boxShadow = '0 0 0 4px #2c3e2f';
-            setTimeout(() => c.style.boxShadow = '', 600);
-          });
-          
-          // Play correct sound
-          document.getElementById('correctSound')?.play().catch(() => {});
-
-          const item = DATA.find(d => d.id === firstPair);
-          if (item) toast(item.fact);
-
-          state.first = null;
-          state.found++;
-          $('#found').textContent = state.found;
-          checkWin();
+        if (state.firstCard.dataset.pairId === state.secondCard.dataset.pairId) {
+          handleMatch();
         } else {
-          // MISMATCH
-          // Play wrong sound
-          document.getElementById('wrongSound')?.play().catch(() => {});
-          
-          // Red flash for mismatch
-          [state.first, card].forEach(c => {
-            c.style.boxShadow = '0 0 0 3px #b22222';
-            setTimeout(() => c.style.boxShadow = '', 300);
-          });
-          
-          state.lock = true;
-          
-          // FIX 3: Longer timeout to see both cards
-          setTimeout(() => {
-            card.classList.remove('flipped');
-            state.first.classList.remove('flipped');
-            state.first = null;
-            state.lock = false;
-          }, 1000);
+          handleMismatch();
         }
       }
 
-      // ===== Check win =====
-      function checkWin() {
-        if (state.found === DATA.length) {
-          stopTimer();
-          $('#status').innerHTML = `🎉 Completed in <strong>${state.moves}</strong> moves • <strong>${formatTime(state.seconds)}</strong>`;
-
-          const drawer = $('#drawer');
-          if (drawer) {
-            drawer.style.display = 'block';
-            const sel = $('#dishSelect');
-            if (sel) {
-              sel.innerHTML = DATA.map(d => `<option value="${d.id}">${d.dish} — ${d.country}</option>`).join('');
-              $('#recipeText').value = DATA[0].fact;
-            }
-          }
-        }
+      function handleMatch() {
+        state.firstCard.classList.add('matched');
+        state.secondCard.classList.add('matched');
+        [state.firstCard, state.secondCard].forEach(c => {
+          c.style.boxShadow = '0 0 0 4px #2c3e2f';
+          setTimeout(() => c.style.boxShadow = '', 600);
+        });
+        playSound('correctSound');
+        const item = DATA.find(d => d.id === state.firstCard.dataset.pairId);
+        toast(item.fact);
+        state.matches++;
+        $('#found').textContent = state.matches;
+        resetBoard();
+        if (state.matches === DATA.length) winGame();
       }
 
-      // ===== Timer functions =====
+      function handleMismatch() {
+        [state.firstCard, state.secondCard].forEach(c => {
+          c.style.boxShadow = '0 0 0 3px #b22222';
+          setTimeout(() => c.style.boxShadow = '', 300);
+        });
+        playSound('wrongSound');
+        setTimeout(() => {
+          state.firstCard.classList.remove('flipped');
+          state.secondCard.classList.remove('flipped');
+          resetBoard();
+        }, 1000);
+      }
+
+      function resetBoard() {
+        state.firstCard = null;
+        state.secondCard = null;
+        state.lockBoard = false;
+      }
+
       function startTimer() {
-        clearInterval(state.timer);
-        state.seconds = 0;
-        $('#time').textContent = '00:00';
         state.timer = setInterval(() => {
           state.seconds++;
           $('#time').textContent = formatTime(state.seconds);
@@ -542,25 +402,31 @@
         clearInterval(state.timer);
       }
 
-      // ===== Toast notification =====
+      function winGame() {
+        stopTimer();
+        $('#status').innerHTML = `🎉 Completed in <strong>${state.moves}</strong> moves • <strong>${formatTime(state.seconds)}</strong>`;
+        const drawer = $('#drawer');
+        drawer.style.display = 'block';
+        const sel = $('#dishSelect');
+        sel.innerHTML = DATA.map(d => `<option value="${d.id}">${d.dish} — ${d.country}</option>`).join('');
+        $('#recipeText').value = DATA[0].fact;
+      }
+
       function toast(text) {
         const t = $('#toast');
-        if (!t) return;
         t.textContent = text;
-        t.classList.remove('show');
-        void t.offsetWidth;
         t.classList.add('show');
         setTimeout(() => t.classList.remove('show'), 3000);
       }
 
-      // ===== Reset game =====
       function resetGame() {
         stopTimer();
         state = {
           deck: buildDeck(),
-          first: null,
-          lock: false,
-          found: 0,
+          firstCard: null,
+          secondCard: null,
+          lockBoard: false,
+          matches: 0,
           moves: 0,
           seconds: 0,
           timer: null
@@ -569,47 +435,29 @@
         $('#found').textContent = '0';
         $('#moves').textContent = '0';
         $('#time').textContent = '00:00';
-        $('#status').innerHTML = 'Pairs found: 0/8 • Moves: 0 • Time: 00:00';
-
-        const drawer = $('#drawer');
-        if (drawer) drawer.style.display = 'none';
+        $('#status').innerHTML = 'Pairs found: <span id="found">0</span>/8 • Moves: <span id="moves">0</span> • Time: <span id="time">00:00</span>';
+        $('#drawer').style.display = 'none';
       }
 
-      // ===== Recipe drawer wiring =====
-      function wireRecipe() {
+      function setupRecipeDrawer() {
         const sel = $('#dishSelect');
-        const textarea = $('#recipeText');
-        if (!sel || !textarea) return;
-
-        sel.addEventListener('change', e => {
+        const text = $('#recipeText');
+        sel.addEventListener('change', (e) => {
           const d = DATA.find(x => x.id === e.target.value);
-          if (d) textarea.value = d.fact;
+          text.value = d ? d.fact : '';
         });
-
-        const copyBtn = $('#copyBtn');
-        if (copyBtn) {
-          copyBtn.addEventListener('click', async () => {
-            try {
-              await navigator.clipboard.writeText(textarea.value);
-              copyBtn.textContent = 'Copied!';
-              setTimeout(() => copyBtn.textContent = 'Copy Recipe', 900);
-            } catch {
-              textarea.select();
-              document.execCommand('copy');
-              copyBtn.textContent = 'Copied!';
-              setTimeout(() => copyBtn.textContent = 'Copy Recipe', 900);
-            }
+        $('#copyBtn').addEventListener('click', () => {
+          navigator.clipboard.writeText(text.value).then(() => {
+            $('#copyBtn').textContent = 'Copied!';
+            setTimeout(() => $('#copyBtn').textContent = 'Copy Recipe', 900);
           });
-        }
+        });
       }
 
-      // ===== Initialize =====
       window.addEventListener('DOMContentLoaded', () => {
         resetGame();
-        wireRecipe();
-
-        const restart = $('#restart');
-        if (restart) restart.addEventListener('click', resetGame);
+        setupRecipeDrawer();
+        $('#restart').addEventListener('click', resetGame);
       });
     })();
   </script>
