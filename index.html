@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +5,211 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>African Food × Country Matching Game — ChicAfricanCulture</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Lora:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: #faf7f2;
+      font-family: 'Lora', serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+    }
+
+    .wrapper {
+      max-width: 900px;
+      width: 100%;
+    }
+
+    .board-wrap {
+      background: #fff9f0;
+      border-radius: 24px;
+      padding: 1.5rem;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+    }
+
+    .controls {
+      margin-bottom: 1rem;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .btn {
+      background: #2c3e2f;
+      color: white;
+      border: none;
+      border-radius: 40px;
+      padding: 0.6rem 1.5rem;
+      font-size: 0.95rem;
+      font-weight: 500;
+      font-family: 'Lora', serif;
+      cursor: pointer;
+      transition: background 0.2s;
+      letter-spacing: 0.3px;
+    }
+
+    .btn:hover {
+      background: #1f2b22;
+    }
+
+    .stats {
+      font-size: 1rem;
+      color: #3b2e1a;
+      margin-bottom: 1.5rem;
+      background: #ede7dc;
+      padding: 0.75rem 1.2rem;
+      border-radius: 50px;
+      display: inline-block;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0 1rem;
+    }
+
+    .card {
+      background: transparent;
+      border: none;
+      aspect-ratio: 1 / 1;
+      cursor: pointer;
+      perspective: 1000px;
+      width: 100%;
+      padding: 0;
+    }
+
+    .card .inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.5s;
+      transform-style: preserve-3d;
+      border-radius: 16px;
+    }
+
+    .card.flipped .inner {
+      transform: rotateY(180deg);
+    }
+
+    .card.matched .inner {
+      filter: brightness(0.98);
+      opacity: 0.9;
+    }
+
+    .face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+    }
+
+    .front {
+      background: #000000;
+      border: 1px solid #333333;
+    }
+
+    .back {
+      transform: rotateY(180deg);
+      background: #000000;
+      border: 1px solid #333333;
+      padding: 0.75rem;
+    }
+
+    .card-content {
+      text-align: center;
+      color: #ffffff;
+    }
+
+    .card-title {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin-bottom: 0.25rem;
+      color: #ffffff;
+    }
+
+    .card-subtitle {
+      font-size: 0.85rem;
+      color: #cccccc;
+      font-style: italic;
+    }
+
+    .am1-drawer {
+      margin-top: 1.5rem;
+      border: 1px dashed #d4b68a;
+      background: #fffdfa;
+      border-radius: 16px;
+      padding: 1.2rem;
+    }
+
+    .am1-drawer h3 {
+      margin: 0 0 0.8rem 0;
+      font-family: 'Playfair Display', serif;
+      color: #3b2e1a;
+      font-size: 1.25rem;
+    }
+
+    .row {
+      margin-bottom: 1rem;
+    }
+
+    select, textarea {
+      width: 100%;
+      border: 1px solid #e7d7b7;
+      border-radius: 12px;
+      padding: 0.7rem 0.8rem;
+      font-family: 'Lora', serif;
+      background: #fff;
+      font-size: 0.95rem;
+    }
+
+    textarea {
+      min-height: 160px;
+      resize: vertical;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #2c3e2f;
+      color: white;
+      padding: 0.8rem 2rem;
+      border-radius: 50px;
+      font-size: 1rem;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      transition: transform 0.3s ease;
+      z-index: 1000;
+      opacity: 0.95;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    @media (max-width: 500px) {
+      .grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.7rem;
+      }
+      .board-wrap {
+        padding: 1rem;
+      }
+    }
+  </style>
 </head>
 <body data-mode="embed">
   <main class="wrapper">
@@ -17,17 +220,17 @@
       <div class="stats" id="status">Pairs found: <span id="found">0</span>/8 • Moves: <span id="moves">0</span> • Time: <span id="time">00:00</span></div>
       <div id="grid" class="grid" aria-label="Card grid"></div>
 
-      <section id="drawer" class="am1-drawer" style="margin-top:1rem; border:1px dashed #e7d7b7; background:#fffdfa; border-radius:12px; padding:.9rem; display:none;">
-        <h3 style="margin:.1rem 0 .6rem; font-family:'Playfair Display',serif; color:#3b2e1a; font-size: clamp(1.05rem, 2.2vw, 1.25rem);">Recipe Generator (Unlocked!)</h3>
-        <div class="row" style="display:flex; gap:.6rem; flex-wrap:wrap; align-items:center;">
+      <section id="drawer" class="am1-drawer" style="display: none;">
+        <h3>Recipe Generator (Unlocked!)</h3>
+        <div class="row">
           <label for="dishSelect"><strong>Choose a dish</strong></label>
-          <select id="dishSelect" style="width:100%; border:1px solid #e7d7b7; border-radius:10px; padding:.5rem .6rem; font:inherit; background:#fff;"></select>
+          <select id="dishSelect"></select>
         </div>
-        <div class="row" style="margin-top:.6rem; display:flex; gap:.6rem; flex-wrap:wrap; align-items:center;">
+        <div class="row">
           <label for="recipeText"><strong>Recipe (editable)</strong></label>
-          <textarea id="recipeText" style="width:100%; min-height:160px; border:1px solid #e7d7b7; border-radius:10px; padding:.5rem .6rem; font:inherit; background:#fff;"></textarea>
+          <textarea id="recipeText"></textarea>
         </div>
-        <div class="row" style="margin-top:.6rem;">
+        <div class="row">
           <button id="copyBtn" class="btn">Copy Recipe</button>
         </div>
       </section>
@@ -35,7 +238,252 @@
   </main>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
-  <script src="script.js"></script>
+
+  <script>
+    (function() {
+      // ===== Game data =====
+      const DATA = [
+        { id: 'jollof', dish: 'Jollof Rice', country: 'Nigeria', fact: 'A one-pot rice dish cooked with tomatoes, onions, and spices.' },
+        { id: 'fufu', dish: 'Fufu', country: 'Ghana', fact: 'A starchy side dish made from cassava and plantains.' },
+        { id: 'injera', dish: 'Injera', country: 'Ethiopia', fact: 'A sour fermented flatbread with a spongy texture.' },
+        { id: 'tagine', dish: 'Tagine', country: 'Morocco', fact: 'A slow-cooked stew named after the clay pot it cooks in.' },
+        { id: 'bunny', dish: 'Bunny Chow', country: 'South Africa', fact: 'A hollowed-out loaf of bread filled with curry.' },
+        { id: 'egusi', dish: 'Egusi Soup', country: 'Nigeria', fact: 'A thick soup made with ground melon seeds and leafy vegetables.' },
+        { id: 'suya', dish: 'Suya', country: 'Nigeria', fact: 'Spicy grilled meat skewers seasoned with peanut sauce.' },
+        { id: 'benachin', dish: 'Benachin', country: 'Gambia', fact: 'A one-pot rice dish also known as Jollof in other regions.' }
+      ];
+
+      // ===== Helper functions =====
+      const $ = (sel, root = document) => root.querySelector(sel);
+
+      function shuffle(arr) {
+        for (let i = arr.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr;
+      }
+
+      function formatTime(s) {
+        const m = String(Math.floor(s / 60)).padStart(2, '0');
+        const sec = String(s % 60).padStart(2, '0');
+        return `${m}:${sec}`;
+      }
+
+      // ===== Game state =====
+      let state = {
+        deck: [],
+        first: null,
+        lock: false,
+        found: 0,
+        moves: 0,
+        seconds: 0,
+        timer: null
+      };
+
+      // ===== Build deck =====
+      function buildDeck() {
+        const deck = [];
+        DATA.forEach(item => {
+          deck.push({
+            pairId: item.id,
+            type: 'dish',
+            title: item.dish,
+            subtitle: item.country,
+            fact: item.fact,
+            key: `${item.id}-dish`
+          });
+          deck.push({
+            pairId: item.id,
+            type: 'country',
+            title: item.country,
+            subtitle: item.dish,
+            fact: item.fact,
+            key: `${item.id}-country`
+          });
+        });
+        return shuffle(deck);
+      }
+
+      // ===== Render board =====
+      function renderBoard() {
+        const grid = $('#grid');
+        if (!grid) return;
+
+        grid.innerHTML = '';
+        state.deck.forEach(card => {
+          const btn = document.createElement('button');
+          btn.className = 'card';
+          btn.dataset.pair = card.pairId;
+          btn.dataset.key = card.key;
+
+          const inner = document.createElement('div');
+          inner.className = 'inner';
+
+          const front = document.createElement('div');
+          front.className = 'face front';
+
+          const back = document.createElement('div');
+          back.className = 'face back';
+          back.innerHTML = `
+            <div class="card-content">
+              <div class="card-title">${card.title}</div>
+              <div class="card-subtitle">${card.subtitle}</div>
+            </div>
+          `;
+
+          inner.appendChild(front);
+          inner.appendChild(back);
+          btn.appendChild(inner);
+          btn.addEventListener('click', onFlip);
+          grid.appendChild(btn);
+        });
+      }
+
+      // ===== Flip handler =====
+      function onFlip(e) {
+        const card = e.currentTarget;
+        if (state.lock || card.classList.contains('flipped') || card.classList.contains('matched')) return;
+
+        card.classList.add('flipped');
+
+        if (!state.first) {
+          state.first = card;
+          if (state.moves === 0 && state.found === 0) startTimer();
+          return;
+        }
+
+        state.moves++;
+        $('#moves').textContent = state.moves;
+
+        const firstPair = state.first.dataset.pair;
+        const secondPair = card.dataset.pair;
+
+        if (firstPair === secondPair) {
+          state.first.classList.add('matched');
+          card.classList.add('matched');
+
+          const item = DATA.find(d => d.id === firstPair);
+          if (item) toast(item.fact);
+
+          state.first = null;
+          state.found++;
+          $('#found').textContent = state.found;
+          checkWin();
+        } else {
+          state.lock = true;
+          setTimeout(() => {
+            card.classList.remove('flipped');
+            state.first.classList.remove('flipped');
+            state.first = null;
+            state.lock = false;
+          }, 800);
+        }
+      }
+
+      // ===== Check win =====
+      function checkWin() {
+        if (state.found === DATA.length) {
+          stopTimer();
+          $('#status').innerHTML = `🎉 Completed in <strong>${state.moves}</strong> moves • <strong>${formatTime(state.seconds)}</strong>`;
+
+          const drawer = $('#drawer');
+          if (drawer) {
+            drawer.style.display = 'block';
+            const sel = $('#dishSelect');
+            if (sel) {
+              sel.innerHTML = DATA.map(d => `<option value="${d.id}">${d.dish} — ${d.country}</option>`).join('');
+              $('#recipeText').value = DATA[0].fact;
+            }
+          }
+        }
+      }
+
+      // ===== Timer functions =====
+      function startTimer() {
+        clearInterval(state.timer);
+        state.seconds = 0;
+        $('#time').textContent = '00:00';
+        state.timer = setInterval(() => {
+          state.seconds++;
+          $('#time').textContent = formatTime(state.seconds);
+        }, 1000);
+      }
+
+      function stopTimer() {
+        clearInterval(state.timer);
+      }
+
+      // ===== Toast notification =====
+      function toast(text) {
+        const t = $('#toast');
+        if (!t) return;
+        t.textContent = text;
+        t.classList.remove('show');
+        void t.offsetWidth;
+        t.classList.add('show');
+        setTimeout(() => t.classList.remove('show'), 3000);
+      }
+
+      // ===== Reset game =====
+      function resetGame() {
+        stopTimer();
+        state = {
+          deck: buildDeck(),
+          first: null,
+          lock: false,
+          found: 0,
+          moves: 0,
+          seconds: 0,
+          timer: null
+        };
+        renderBoard();
+        $('#found').textContent = '0';
+        $('#moves').textContent = '0';
+        $('#time').textContent = '00:00';
+        $('#status').innerHTML = 'Pairs found: 0/8 • Moves: 0 • Time: 00:00';
+
+        const drawer = $('#drawer');
+        if (drawer) drawer.style.display = 'none';
+      }
+
+      // ===== Recipe drawer wiring =====
+      function wireRecipe() {
+        const sel = $('#dishSelect');
+        const textarea = $('#recipeText');
+        if (!sel || !textarea) return;
+
+        sel.addEventListener('change', e => {
+          const d = DATA.find(x => x.id === e.target.value);
+          if (d) textarea.value = d.fact;
+        });
+
+        const copyBtn = $('#copyBtn');
+        if (copyBtn) {
+          copyBtn.addEventListener('click', async () => {
+            try {
+              await navigator.clipboard.writeText(textarea.value);
+              copyBtn.textContent = 'Copied!';
+              setTimeout(() => copyBtn.textContent = 'Copy Recipe', 900);
+            } catch {
+              textarea.select();
+              document.execCommand('copy');
+              copyBtn.textContent = 'Copied!';
+              setTimeout(() => copyBtn.textContent = 'Copy Recipe', 900);
+            }
+          });
+        }
+      }
+
+      // ===== Initialize =====
+      window.addEventListener('DOMContentLoaded', () => {
+        resetGame();
+        wireRecipe();
+
+        const restart = $('#restart');
+        if (restart) restart.addEventListener('click', resetGame);
+      });
+    })();
+  </script>
 </body>
 </html>
-
