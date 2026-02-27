@@ -1,4 +1,4 @@
-# African Food × Country Matching Game
+# African Food Country Matching Game
 
 A minimalist memory game that pairs African dishes with their countries of origin. Part of the African Foodways project.
 
