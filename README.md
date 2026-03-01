@@ -39,6 +39,10 @@ This game is a companion to the [African Foodways Data Archive](https://chicafri
 
 [Play the game here](https://chicafricanculture.github.io/African-Food-Card-Game/)
 
-
+   <div class="footer">
+        <p>Maintained by <a href="https://www.theafricangourmet.com" style="color: #8B4513;">The African Gourmet</a> · Licensed under CC BY 4.0</p>
+        <p>Part of [SankofaKitchen](https://github.com/ChicAfricanCulture) — African foodways retrieved through play  
+[Visit my GitHub profile](https://github.com/ChicAfricanCulture) for more projects</p>
+    </div>
 
 
