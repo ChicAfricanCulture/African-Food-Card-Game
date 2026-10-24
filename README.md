@@ -1,48 +1,27 @@
-# African Food Country Matching Game
+# African Food × Country
 
-A minimalist memory game that pairs African dishes with their countries of origin. Part of the African Foodways project.
+A memory card game that pairs well-loved African dishes with the places they come from: jollof rice, fufu, kenkey, chicken yassa, doro wat, tajine, moambe and bunny chow.
 
-🔗 **Play the game:** https://chicafricanculture.github.io/African-Food-Card-Game/
+**▶ Play it here: [https://chicafricanculture.github.io/African-Food-Card-Game/](https://chicafricanculture.github.io/African-Food-Card-Game/)**
+
+A free game from [The African Gourmet](https://www.theafricangourmet.com/), made to help people learn about African food through play.
+
+## How to play
+
+- Click a card to flip it, then flip another.
+- Match each dish to its country to keep the pair.
+- Find all 8 pairs. The game counts your moves and time.
+- When you finish, a drawer opens with a short note on each dish that you can copy.
+
+## More from The African Gourmet
+
+- [More African food stories at The African Gourmet](https://www.theafricangourmet.com/)
+- [More games to play and learn](https://www.theafricangourmet.com/p/play-learn-african-food-games.html)
+
+## Licence
+
+Licensed under CC BY 4.0. See also the LICENSE file in this repo.
 
 ---
 
-## About
-
-Match traditional African dishes to their home countries while learning fun facts along the way. Features 8 classic dishes from across the continent, a sleek black-on-white design, and a recipe generator that unlocks upon completion.
-
-## How to Play
-
-- Click a card to flip it
-- Find the dish that matches its country
-- Complete all 8 pairs to unlock the recipe drawer
-- Track your moves and time
-
-## Features
-
-- Clean, text-only design — no images, no distractions
-- Black cards with white text for a modern, elegant feel
-- 8 dish–country pairs from across Africa
-- Facts revealed when you make a match
-- Recipe drawer unlocks upon completion
-
-## Project Context
-
-This game is a companion to the [African Foodways Data Archive](https://chicafricanculture.github.io/african-foodways-data/). The archive holds field notes and research; the game makes the names familiar through play.
-
-## Built With
-
-- HTML
-- CSS
-- Vanilla JavaScript (no frameworks)
-
-## Live Site
-
-[Play the game here](https://chicafricanculture.github.io/African-Food-Card-Game/)
-
-   <div class="footer">
-        <p>Maintained by <a href="https://www.theafricangourmet.com" style="color: #8B4513;">The African Gourmet</a> · Licensed under CC BY 4.0</p>
-        <p>Part of [SankofaKitchen](https://github.com/ChicAfricanCulture) — African foodways retrieved through play  
-[Visit my GitHub profile](https://github.com/ChicAfricanCulture) for more projects</p>
-    </div>
-
-
+Maintained by [The African Gourmet](https://www.theafricangourmet.com/).
